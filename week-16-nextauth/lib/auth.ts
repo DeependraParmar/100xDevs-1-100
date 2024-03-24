@@ -19,17 +19,13 @@ export const nextauth_config = {
             }
         })
     ],
-        secret: process.env.NEXTAUTH_SECRET,
-            callbacks: {
-        jwt: ({ token, user }) => {
-            console.log(token);
-            return token;
-        },
-            session: ({ session, token, user }: any) => {
-                if (session && session.user) {
-                    session.user.id = token.sub;
-                }
-                return session;
+    secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        session: ({ session, token, user }: any) => {
+            if (session && session.user) {
+                session.user.id = token.sub;
             }
+            return session;
+        }
     }
 }
